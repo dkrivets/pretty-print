@@ -37,12 +37,6 @@
   :group 'pretty-print)
 
 
-;(defvar pretty-print-map
-;  (let ((map (make-sparse-keymap)))
-;    (define-key map (kbd "C-x p") #'pretty-print))
-;  "Keymap for using pretty print.")
-
-
 (defun pretty-print--cmd (cmd)
   "Run CMD by shell in Emacs."
   (if (< 0 (length cmd))
@@ -55,8 +49,8 @@
 (defun pretty-print--standard-completion (prompt alist)
   "Standart completion which use PROMPT as question for user action.
 ALIST as list of completion.
-Example (for debug):
-(pretty-print--standard-completion \"asd: \" (list \"asd\" \"qwe\"))\."
+Example, for debug:
+\\(pretty-print--standard-completion \"asd: \" (list \"asd\" \"qwe\"))\."
   (interactive)
   ;; Prepare list for completion.
   ;; It must be looks like (("test" 1) ("test2" 2))
@@ -108,11 +102,10 @@ Uses only if IDO works."
   :group 'pretty-print
   :require 'pretty-print
   :lighter " pp"
-  ;:keymap pretty-print-map
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "C-c p") 'pretty-print)
+            map)
   :global t
-  ;:type 'boolean
-  ;;(make-local-variable 'pretty-print-map)
-  (make-local-variable 'pretty-print--enable-p)
   )
 
 
